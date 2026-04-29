@@ -46,7 +46,7 @@ const App = () => {
   ];
 
   return (
-    <div className="relative min-h-screen bg-[#050505] text-white overflow-hidden font-sans selection:bg-amber-500/30">
+    <div className="relative min-h-screen bg-black text-white overflow-hidden font-sans selection:bg-amber-500/30">
 
       <style dangerouslySetInnerHTML={{
         __html: `
