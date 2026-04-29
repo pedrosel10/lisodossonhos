@@ -1,0 +1,19 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/pedrosel/lisodossonhos.com
+    - export NODE_OPTIONS=--max_old_space_size=2048
+
+    # Ir para a pasta do repo no servidor (cPanel geralmente define automaticamente,
+    # mas isso garante)
+    - cd $CPANEL_REPO_PATH
+
+    # Instala dependências e gera build
+    - /usr/bin/npm ci || /usr/bin/npm install
+    - /usr/bin/npm run build
+
+    # Publica SOMENTE o dist/ para a pasta do domínio
+    - /usr/bin/rsync -av --delete dist/ $DEPLOYPATH/
+
+    # Permissões básicas
+    - /bin/find $DEPLOYPATH -type d -exec chmod 755 {} \;
+    - /bin/find $DEPLOYPATH -type f -exec chmod 644 {} \;
