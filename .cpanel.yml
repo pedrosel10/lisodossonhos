@@ -3,13 +3,17 @@ deployment:
     - export DEPLOYPATH=/home/pedrosel/lisodossonhos.com
     - export REPOPATH=/home/pedrosel/repositories/lisodossonhos
     - export NODE_OPTIONS=--max_old_space_size=2048
+    - export LOGFILE=$REPOPATH/deploy.log
 
-    - cd $REPOPATH
+    - echo "=== DEPLOY START $(date) ===" >> $LOGFILE
+    - cd $REPOPATH >> $LOGFILE 2>&1
 
-    - /usr/bin/npm ci || /usr/bin/npm install
-    - /usr/bin/npm run build
+    - /usr/bin/node -v >> $LOGFILE 2>&1
+    - /usr/bin/npm -v >> $LOGFILE 2>&1
 
-    - /usr/bin/rsync -av --delete $REPOPATH/dist/ $DEPLOYPATH/
+    - /usr/bin/npm ci >> $LOGFILE 2>&1 || /usr/bin/npm install >> $LOGFILE 2>&1
+    - /usr/bin/npm run build >> $LOGFILE 2>&1
 
-    - /bin/find $DEPLOYPATH -type d -exec chmod 755 {} \;
-    - /bin/find $DEPLOYPATH -type f -exec chmod 644 {} \;
+    - /usr/bin/rsync -av --delete $REPOPATH/dist/ $DEPLOYPATH/ >> $LOGFILE 2>&1
+
+    - echo "=== DEPLOY END $(date) ===" >> $LOGFILE
