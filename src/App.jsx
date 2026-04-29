@@ -9,6 +9,9 @@ const App = () => {
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
+    // Tira isso depois do teste!
+    alert("Deploy Automático funcionando com sucesso! 🎉");
+
     const handleMouseMove = (e) => {
       setMousePos({ x: e.clientX, y: e.clientY });
     };
