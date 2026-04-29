@@ -1,6 +1,4 @@
+---
 deployment:
   tasks:
-    - /bin/echo "Starting synchronization..."
-    - /usr/bin/rsync -a --delete dist/ /home/pedrosel/lisodossonhos.com/
-    - /bin/echo "Deployment finished."
-    - /bin/true
+    - /bin/cp -R dist/* /home/pedrosel/lisodossonhos.com/
