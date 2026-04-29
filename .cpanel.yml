@@ -1,29 +1,6 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/pedrosel/lisodossonhos.com
-    - export REPOPATH=/home/pedrosel/repositories/lisodossonhos
-    - export NODE_OPTIONS=--max_old_space_size=2048
-    - export LOGFILE=$REPOPATH/deploy.log
-
-    - echo "=== DEPLOY START $(date) ===" >> $LOGFILE
-    - cd $REPOPATH >> $LOGFILE 2>&1
-
-    # Acha node/npm (cPanel costuma instalar em /opt/cpanel/ea-nodejsXX/)
-    - export NODEBIN="$(ls -1d /opt/cpanel/ea-nodejs*/bin/node 2>/dev/null | tail -n 1)"
-    - export NPMBIN="$(ls -1d /opt/cpanel/ea-nodejs*/bin/npm 2>/dev/null | tail -n 1)"
-
-    - if [ -z "$NODEBIN" ]; then export NODEBIN="$(command -v node)"; fi
-    - if [ -z "$NPMBIN" ]; then export NPMBIN="$(command -v npm)"; fi
-
-    - echo "NODEBIN=$NODEBIN" >> $LOGFILE
-    - echo "NPMBIN=$NPMBIN" >> $LOGFILE
-
-    - $NODEBIN -v >> $LOGFILE 2>&1
-    - $NPMBIN -v >> $LOGFILE 2>&1
-
-    - $NPMBIN ci >> $LOGFILE 2>&1 || $NPMBIN install >> $LOGFILE 2>&1
-    - $NPMBIN run build >> $LOGFILE 2>&1
-
-    - /usr/bin/rsync -av --delete $REPOPATH/dist/ $DEPLOYPATH/ >> $LOGFILE 2>&1
-
-    - echo "=== DEPLOY END $(date) ===" >> $LOGFILE
+    - /usr/bin/rsync -av --delete dist/ $DEPLOYPATH/
+    - /bin/find $DEPLOYPATH -type d -exec chmod 755 {} \;
+    - /bin/find $DEPLOYPATH -type f -exec chmod 644 {} \;
