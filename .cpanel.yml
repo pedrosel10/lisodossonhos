@@ -1,6 +1,3 @@
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/pedrosel/lisodossonhos.com
-    - /usr/bin/rsync -av --delete dist/ $DEPLOYPATH/
-    - /bin/find $DEPLOYPATH -type d -exec chmod 755 {} \;
-    - /bin/find $DEPLOYPATH -type f -exec chmod 644 {} \ ;
+    - /usr/bin/rsync -a --delete dist/ /home/pedrosel/lisodossonhos.com/
