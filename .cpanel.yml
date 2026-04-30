@@ -1,4 +1,9 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/pedrosel/lisodossonhos.com
+
+    # Garante que a pasta existe
+    - /bin/mkdir -p $DEPLOYPATH
+
+    # Sincroniza a dist com o domínio (remove arquivos antigos)
     - /usr/bin/rsync -av --delete dist/ $DEPLOYPATH/
