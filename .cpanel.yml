@@ -1,4 +1,5 @@
+---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/pedrosel/lisodossonhos.com
+    - /bin/cp -R dist/* /home/pedrosel/lisodossonhos.com/
     - /usr/bin/rsync -av --delete dist/ $DEPLOYPATH/
